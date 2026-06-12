@@ -1,10 +1,10 @@
 # 🩺 HealthScreen AI
 
-> Personalized health screening recommendations by age and gender, powered by Claude AI.
+> Personalized health screening recommendations by age and gender, powered by Google Gemini AI.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-green?style=flat-square)](https://neerajakasu.github.io/healthscreen-ai)
 [![HTML](https://img.shields.io/badge/Built%20with-HTML%20%2B%20Vanilla%20JS-orange?style=flat-square)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![Anthropic](https://img.shields.io/badge/AI-Claude%20by%20Anthropic-blueviolet?style=flat-square)](https://www.anthropic.com)
+[![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-blue?style=flat-square)](https://aistudio.google.com)
 
 ---
 
@@ -22,7 +22,7 @@ Examples of tests it covers: blood pressure checks, cholesterol screening, colon
 
 ## Screenshot
 
-> _(Add a screenshot here after deploying — drag and drop an image into this README on GitHub)_
+> _(Add a screenshot here — drag and drop an image into this README on GitHub)_
 
 ---
 
@@ -31,7 +31,7 @@ Examples of tests it covers: blood pressure checks, cholesterol screening, colon
 1. Open the [live app](https://neerajakasu.github.io/healthscreen-ai)
 2. Enter your age and select your biological sex
 3. Click **Get my screenings**
-4. Optionally add your own [Anthropic API key](https://console.anthropic.com) for higher usage limits
+4. Results appear instantly — no login or account needed
 
 ---
 
@@ -45,8 +45,6 @@ cd healthscreen-ai
 open index.html
 ```
 
-To call the Anthropic API from a browser, you need an API key from [console.anthropic.com](https://console.anthropic.com). New accounts receive free credits.
-
 ---
 
 ## Tech stack
@@ -55,10 +53,8 @@ To call the Anthropic API from a browser, you need an API key from [console.anth
 |-------|-----------|
 | Frontend | Plain HTML5 + Vanilla JavaScript |
 | Styling | Pure CSS (no frameworks) |
-| AI | Anthropic Claude API (`claude-sonnet-4-6`) |
-| Hosting | GitHub Pages |
-
-No Node.js. No React. No build step. One single HTML file.
+| AI | Google Gemini API (`gemini-1.5-flash`) |
+| Hosting | GitHub Pages (free) |
 
 ---
 
@@ -66,17 +62,9 @@ No Node.js. No React. No build step. One single HTML file.
 
 ```
 healthscreen-ai/
-└── index.html      # The entire app — HTML, CSS, and JS in one file
+├── index.html      # The entire app — HTML, CSS, and JS in one file
+└── README.md       # This file
 ```
-
----
-
-## API key note
-
-This app calls the Anthropic API directly from the browser. There are two ways to use it:
-
-- **Shared key** (default): works out of the box if the owner has pre-configured a key
-- **Your own key**: click "Use your own Anthropic API key" and paste a key from [console.anthropic.com](https://console.anthropic.com) — keys are never stored or sent anywhere other than Anthropic
 
 ---
 
@@ -88,7 +76,7 @@ This tool provides general health information based on common clinical guideline
 
 ## Future improvements
 
-- [ ] Add more gender/sex options
+- [ ] Add more gender options
 - [ ] Export results as PDF
 - [ ] Add language selector (Spanish, Portuguese, etc.)
 - [ ] Spring Boot backend version with proper API key management
@@ -101,7 +89,7 @@ This tool provides general health information based on common clinical guideline
 Built by **Neeraja Kasu** — Senior Java Developer exploring AI integration.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/nkasu/)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat-square&logo=github)](https://github.com/neerajakasu)
+[![GitHub](https://img.shields.io/badge/GitHub-neerajakasu-black?style=flat-square&logo=github)](https://github.com/neerajakasu)
 
 ---
 
