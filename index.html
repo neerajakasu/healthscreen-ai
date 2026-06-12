@@ -7,7 +7,273 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthScreen AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
+    --green-900: #14532d;
+    --green-700: #15803d;
+    --green-100: #dcfce7;
+    --slate-900: #0f172a;
+    --slate-700: #334155;
+    --slate-500: #64748b;
+    --slate-300: #cbd5e1;
+    --white: #ffffff;
+    --red-100: #fee2e2;
+    --red-700: #b91c1c;
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--slate-900);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    border-bottom: 1px solid var(--slate-300);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green-700); flex-shrink: 0; }
+  header span { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--slate-900); }
+  header small { font-size: 12px; color: var(--slate-500); margin-left: 4px; font-weight: 400; }
+
+  .hero { padding: 3.5rem 2rem 2rem; max-width: 680px; margin: 0 auto; width: 100%; }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+    color: var(--slate-900);
+    margin-bottom: 0.75rem;
+    font-weight: 400;
+  }
+  .hero h1 em { color: var(--green-700); font-style: normal; }
+  .hero p { font-size: 15px; color: var(--slate-500); line-height: 1.6; max-width: 480px; }
+
+  .form-card { max-width: 680px; margin: 0 auto; width: 100%; padding: 0 2rem 2rem; }
+
+  .inputs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  @media (max-width: 480px) { .inputs-row { grid-template-columns: 1fr; } }
+
+  .field label {
+    display: block; font-size: 12px; font-weight: 600;
+    color: var(--slate-500); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .field input, .field select {
+    width: 100%; height: 46px;
+    border: 1.5px solid var(--slate-300);
+    border-radius: 10px; padding: 0 14px;
+    font-family: inherit; font-size: 15px;
+    color: var(--slate-900); background: var(--white);
+    outline: none; transition: border-color 0.15s;
+    appearance: none; -webkit-appearance: none;
+  }
+  .field input:focus, .field select:focus { border-color: var(--green-700); }
+  .field .select-wrap { position: relative; }
+  .field .select-wrap::after {
+    content: ''; position: absolute; right: 14px; top: 50%;
+    transform: translateY(-50%); border: 5px solid transparent;
+    border-top-color: var(--slate-500); margin-top: 3px; pointer-events: none;
+  }
+
+  button.primary {
+    width: 100%; height: 50px; background: var(--green-700);
+    color: var(--white); border: none; border-radius: 10px;
+    font-family: inherit; font-size: 15px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 8px;
+    transition: background 0.15s, opacity 0.15s;
+  }
+  button.primary:hover { background: var(--green-900); }
+  button.primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  #results-area { max-width: 680px; margin: 0 auto; width: 100%; padding: 0 2rem 4rem; display: none; }
+  .result-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1.5rem; padding-bottom: 1rem;
+    border-bottom: 1px solid var(--slate-300);
+  }
+  .result-header h2 { font-size: 17px; font-weight: 600; color: var(--slate-900); }
+  .result-header .pill {
+    font-size: 12px; font-weight: 600;
+    background: var(--green-100); color: var(--green-900);
+    border-radius: 20px; padding: 3px 10px;
+  }
+  #result-text { font-size: 14.5px; line-height: 1.75; color: var(--slate-700); white-space: pre-wrap; }
+
+  .dot-loader { display: none; gap: 5px; align-items: center; padding: 2rem 0; }
+  .dot-loader.active { display: flex; }
+  .dot-loader span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green-700); animation: bounce 1.2s infinite ease-in-out;
+  }
+  .dot-loader span:nth-child(2) { animation-delay: 0.15s; }
+  .dot-loader span:nth-child(3) { animation-delay: 0.30s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .notice { padding: 12px 16px; border-radius: 10px; font-size: 13.5px; line-height: 1.6; }
+  .notice.error { background: var(--red-100); color: var(--red-700); }
+
+  .disclaimer {
+    max-width: 680px; margin: 0 auto; width: 100%;
+    padding: 0 2rem 2rem; font-size: 12px;
+    color: var(--slate-500); line-height: 1.5;
+  }
+  .disclaimer strong { color: var(--slate-700); }
+
+  .powered {
+    max-width: 680px; margin: 0 auto; width: 100%;
+    padding: 0 2rem 1rem;
+    font-size: 12px; color: var(--slate-500);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-dot"></div>
+  <span>HealthScreen <small>AI-powered guide</small></span>
+</header>
+
+<section class="hero">
+  <h1>Know which tests<br>matter <em>at your age</em></h1>
+  <p>Enter your age and biological sex to get a personalised list of recommended health screenings — based on current clinical guidelines.</p>
+</section>
+
+<section class="form-card">
+  <div class="inputs-row">
+    <div class="field">
+      <label for="age">Age</label>
+      <input type="number" id="age" min="1" max="120" placeholder="e.g. 45" />
+    </div>
+    <div class="field">
+      <label for="gender">Biological sex</label>
+      <div class="select-wrap">
+        <select id="gender">
+          <option value="">Select…</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="primary" id="submit-btn" onclick="getScreenings()">
+    Get my screenings
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+
+  <div id="error-area" style="margin-top:12px;"></div>
+</section>
+
+<section id="results-area">
+  <div class="result-header">
+    <h2>Your recommended screenings</h2>
+    <span class="pill" id="result-pill"></span>
+  </div>
+  <div class="dot-loader" id="loader"><span></span><span></span><span></span></div>
+  <div id="result-text"></div>
+</section>
+
+<div class="powered">Powered by OpenRouter AI · Free to use</div>
+
+<div class="disclaimer">
+  <strong>Medical disclaimer:</strong> This tool provides general health information based on common clinical guidelines (USPSTF, AHA, ACS). It is not a substitute for professional medical advice. Always consult your doctor before making health decisions.
+</div>
+
+<script>
+  const OR_KEY = "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";
+  const OR_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+  async function getScreenings() {
+    const age    = document.getElementById('age').value.trim();
+    const gender = document.getElementById('gender').value;
+    const errArea = document.getElementById('error-area');
+    errArea.innerHTML = '';
+
+    if (!age || age < 1 || age > 120) {
+      errArea.innerHTML = '<div class="notice error">Please enter a valid age between 1 and 120.</div>';
+      return;
+    }
+    if (!gender) {
+      errArea.innerHTML = '<div class="notice error">Please select a biological sex.</div>';
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+
+    const resultsArea = document.getElementById('results-area');
+    resultsArea.style.display = 'block';
+    document.getElementById('result-pill').textContent = `${gender}, age ${age}`;
+    document.getElementById('result-text').textContent = '';
+    document.getElementById('loader').classList.add('active');
+
+    const prompt = `You are a clinical health screening advisor. A patient is: ${gender}, aged ${age}. List all mandatory and strongly recommended health screenings based on USPSTF, AHA, and ACS guidelines. For each test include: test name, why recommended, how often, and age-specific notes. Group by category. Be specific and practical.`;
+
+    try {
+      const res = await fetch(OR_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${OR_KEY}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://neerajakasu.github.io/healthscreen-ai',
+          'X-Title': 'HealthScreen AI'
+        },
+        body: JSON.stringify({
+          model: 'mistralai/mistral-7b-instruct:free',
+          messages: [
+            { role: 'system', content: 'You are a clinical health screening advisor.' },
+            { role: 'user', content: prompt }
+          ],
+          max_tokens: 1000,
+          temperature: 0.3
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        const msg = data?.error?.message || 'API error. Please try again in a moment.';
+        document.getElementById('loader').classList.remove('active');
+        document.getElementById('result-text').innerHTML = `<div class="notice error">${msg}</div>`;
+        btn.disabled = false;
+        return;
+      }
+
+      const text = data.choices?.[0]?.message?.content || 'No response received.';
+
+      document.getElementById('loader').classList.remove('active');
+      document.getElementById('result-text').textContent = text.trim();
+
+    } catch (e) {
+      document.getElementById('loader').classList.remove('active');
+      document.getElementById('result-text').innerHTML = `<div class="notice error">Network error: ${e.message}</div>`;
+    }
+
+    btn.disabled = false;
+  }
+
+  document.getElementById('age').addEventListener('keydown', e => {
+    if (e.key === 'Enter') getScreenings();
+  });
+</script>
+</body>
+</html>
+
     --green-900: #14532d;
     --green-700: #15803d;
     --green-100: #dcfce7;
