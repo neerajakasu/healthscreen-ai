@@ -98,9 +98,9 @@ This tool provides general health information based on common clinical guideline
 
 ## Author
 
-Built by **[Neeraja Kasu]** — Senior Java Developer exploring AI integration.
+Built by **Neeraja Kasu** — Senior Java Developer exploring AI integration.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin)](https://linkedin.com/in/yourprofile)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/nkasu/)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat-square&logo=github)](https://github.com/neerajakasu)
 
 ---
