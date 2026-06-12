@@ -1,10 +1,10 @@
 # 🩺 HealthScreen AI
 
-> Personalized health screening recommendations by age and gender, powered by Google Gemini AI.
+> Personalized health screening recommendations by age and gender, powered by Hugging Face AI.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-green?style=flat-square)](https://neerajakasu.github.io/healthscreen-ai)
 [![HTML](https://img.shields.io/badge/Built%20with-HTML%20%2B%20Vanilla%20JS-orange?style=flat-square)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-blue?style=flat-square)](https://aistudio.google.com)
+[![Hugging Face](https://img.shields.io/badge/AI-Hugging%20Face-yellow?style=flat-square)](https://huggingface.co)
 
 ---
 
@@ -29,10 +29,9 @@ Examples of tests it covers: blood pressure checks, cholesterol screening, colon
 ## How to use
 
 1. Open the [live app](https://neerajakasu.github.io/healthscreen-ai)
-2. Get a **free Gemini API key** at [aistudio.google.com/apikey](https://aistudio.google.com/apikey) — no credit card required
-3. Paste the key into the app (it's saved in your browser for next time)
-4. Enter your age and biological sex
-5. Click **Get my screenings**
+2. Enter your age and biological sex
+3. Click **Get my screenings**
+4. Results appear — no login, no API key, no setup needed
 
 ---
 
@@ -54,7 +53,7 @@ open index.html
 |-------|-----------|
 | Frontend | Plain HTML5 + Vanilla JavaScript |
 | Styling | Pure CSS (no frameworks) |
-| AI | Google Gemini API (`gemini-1.5-flash`, free tier) |
+| AI | Hugging Face Inference API (`Mistral-7B-Instruct-v0.2`, free tier) |
 | Hosting | GitHub Pages (free) |
 
 ---
@@ -66,16 +65,6 @@ healthscreen-ai/
 ├── index.html      # The entire app — HTML, CSS, and JS in one file
 └── README.md       # This file
 ```
-
----
-
-## API key
-
-This app uses the **Google Gemini free tier** — 1,500 requests/day at no cost.
-
-Each user provides their own API key via the in-app input. Keys are stored only in the user's own browser (`localStorage`) and are never sent anywhere except directly to Google's API.
-
-Get a free key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
 
 ---
 
@@ -91,7 +80,7 @@ This tool provides general health information based on common clinical guideline
 - [ ] Export results as PDF
 - [ ] Add language selector (Spanish, Portuguese, etc.)
 - [ ] Spring Boot backend version with server-side API key management
-- [ ] Add RAG with actual USPSTF guideline documents
+- [ ] Add RAG with actual clinical guideline documents
 
 ---
 
