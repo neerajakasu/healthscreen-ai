@@ -187,8 +187,7 @@
 
 <script>
   const HF_TOKEN = "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";
-  const HF_MODEL = "mistralai/Mistral-7B-Instruct-v0.2";
-  const HF_URL   = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
+  const HF_URL   = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta";
 
   async function getScreenings() {
     const age    = document.getElementById('age').value.trim();
@@ -214,12 +213,7 @@
     document.getElementById('result-text').textContent = '';
     document.getElementById('loader').classList.add('active');
 
-    const prompt = `<s>[INST] You are a clinical health screening advisor. A patient is: ${gender}, aged ${age}.
-
-List all mandatory and strongly recommended health screenings and preventive tests for this person based on USPSTF, AHA, and ACS guidelines.
-
-For each test include: test name, why it is recommended, how often, and any age-specific notes.
-Group by category. Be specific and practical. [/INST]`;
+    const prompt = `<|system|>You are a clinical health screening advisor.</s><|user|>A patient is: ${gender}, aged ${age}. List all mandatory and strongly recommended health screenings and preventive tests based on USPSTF, AHA, and ACS guidelines. For each test include: test name, why recommended, how often, and age-specific notes. Group by category. Be specific and practical.</s><|assistant|>`;
 
     try {
       const res = await fetch(HF_URL, {
