@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Health Screening Guide</title>
+<title>HealthScreen AI</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
     --green-900: #14532d;
     --green-700: #15803d;
@@ -19,13 +18,7 @@
     --white: #ffffff;
     --red-100: #fee2e2;
     --red-700: #b91c1c;
-    --amber-100: #fef3c7;
-    --amber-800: #92400e;
-    --blue-50: #eff6ff;
-    --blue-700: #1d4ed8;
-    --blue-200: #bfdbfe;
   }
-
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--white);
@@ -34,7 +27,6 @@
     display: flex;
     flex-direction: column;
   }
-
   header {
     border-bottom: 1px solid var(--slate-300);
     padding: 1rem 2rem;
@@ -46,12 +38,7 @@
   header span { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--slate-900); }
   header small { font-size: 12px; color: var(--slate-500); margin-left: 4px; font-weight: 400; }
 
-  .hero {
-    padding: 3.5rem 2rem 2rem;
-    max-width: 680px;
-    margin: 0 auto;
-    width: 100%;
-  }
+  .hero { padding: 3.5rem 2rem 2rem; max-width: 680px; margin: 0 auto; width: 100%; }
   .hero h1 {
     font-family: 'DM Serif Display', serif;
     font-size: clamp(2rem, 5vw, 3rem);
@@ -63,171 +50,63 @@
   .hero h1 em { color: var(--green-700); font-style: normal; }
   .hero p { font-size: 15px; color: var(--slate-500); line-height: 1.6; max-width: 480px; }
 
-  .form-card {
-    max-width: 680px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 2rem 2rem;
-  }
+  .form-card { max-width: 680px; margin: 0 auto; width: 100%; padding: 0 2rem 2rem; }
 
-  /* API key banner */
-  .api-banner {
-    background: var(--blue-50);
-    border: 1px solid var(--blue-200);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-  .api-banner p {
-    font-size: 13.5px;
-    color: var(--blue-700);
-    line-height: 1.6;
-    margin-bottom: 10px;
-  }
-  .api-banner a { color: var(--blue-700); font-weight: 600; }
-  .api-key-row { display: flex; gap: 8px; align-items: center; }
-  .api-key-row input {
-    flex: 1;
-    height: 42px;
-    border: 1.5px solid var(--blue-200);
-    border-radius: 9px;
-    padding: 0 14px;
-    font-family: inherit;
-    font-size: 14px;
-    color: var(--slate-900);
-    background: var(--white);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .api-key-row input:focus { border-color: var(--blue-700); }
-  .api-key-row input::placeholder { color: var(--slate-500); letter-spacing: 0.02em; }
-  .save-btn {
-    height: 42px;
-    padding: 0 16px;
-    background: var(--blue-700);
-    color: var(--white);
-    border: none;
-    border-radius: 9px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: opacity 0.15s;
-  }
-  .save-btn:hover { opacity: 0.88; }
-  .key-saved {
-    display: none;
-    font-size: 12px;
-    color: var(--green-700);
-    font-weight: 600;
-    margin-top: 6px;
-  }
-  .key-saved.visible { display: block; }
-
-  .inputs-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
+  .inputs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
   @media (max-width: 480px) { .inputs-row { grid-template-columns: 1fr; } }
 
   .field label {
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--slate-500);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 6px;
+    display: block; font-size: 12px; font-weight: 600;
+    color: var(--slate-500); text-transform: uppercase;
+    letter-spacing: 0.06em; margin-bottom: 6px;
   }
   .field input, .field select {
-    width: 100%;
-    height: 46px;
+    width: 100%; height: 46px;
     border: 1.5px solid var(--slate-300);
-    border-radius: 10px;
-    padding: 0 14px;
-    font-family: inherit;
-    font-size: 15px;
-    color: var(--slate-900);
-    background: var(--white);
-    outline: none;
-    transition: border-color 0.15s;
-    appearance: none;
-    -webkit-appearance: none;
+    border-radius: 10px; padding: 0 14px;
+    font-family: inherit; font-size: 15px;
+    color: var(--slate-900); background: var(--white);
+    outline: none; transition: border-color 0.15s;
+    appearance: none; -webkit-appearance: none;
   }
   .field input:focus, .field select:focus { border-color: var(--green-700); }
   .field .select-wrap { position: relative; }
   .field .select-wrap::after {
-    content: '';
-    position: absolute;
-    right: 14px; top: 50%;
-    transform: translateY(-50%);
-    border: 5px solid transparent;
-    border-top-color: var(--slate-500);
-    margin-top: 3px;
-    pointer-events: none;
+    content: ''; position: absolute; right: 14px; top: 50%;
+    transform: translateY(-50%); border: 5px solid transparent;
+    border-top-color: var(--slate-500); margin-top: 3px; pointer-events: none;
   }
 
   button.primary {
-    width: 100%;
-    height: 50px;
-    background: var(--green-700);
-    color: var(--white);
-    border: none;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    width: 100%; height: 50px; background: var(--green-700);
+    color: var(--white); border: none; border-radius: 10px;
+    font-family: inherit; font-size: 15px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; gap: 8px;
     transition: background 0.15s, opacity 0.15s;
   }
   button.primary:hover { background: var(--green-900); }
   button.primary:disabled { opacity: 0.55; cursor: not-allowed; }
 
-  #results-area {
-    max-width: 680px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 2rem 4rem;
-    display: none;
-  }
+  #results-area { max-width: 680px; margin: 0 auto; width: 100%; padding: 0 2rem 4rem; display: none; }
   .result-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 1.5rem; padding-bottom: 1rem;
     border-bottom: 1px solid var(--slate-300);
   }
   .result-header h2 { font-size: 17px; font-weight: 600; color: var(--slate-900); }
   .result-header .pill {
-    font-size: 12px;
-    font-weight: 600;
-    background: var(--green-100);
-    color: var(--green-900);
-    border-radius: 20px;
-    padding: 3px 10px;
+    font-size: 12px; font-weight: 600;
+    background: var(--green-100); color: var(--green-900);
+    border-radius: 20px; padding: 3px 10px;
   }
-  #result-text {
-    font-size: 14.5px;
-    line-height: 1.75;
-    color: var(--slate-700);
-    white-space: pre-wrap;
-  }
+  #result-text { font-size: 14.5px; line-height: 1.75; color: var(--slate-700); white-space: pre-wrap; }
 
   .dot-loader { display: none; gap: 5px; align-items: center; padding: 2rem 0; }
   .dot-loader.active { display: flex; }
   .dot-loader span {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--green-700);
-    animation: bounce 1.2s infinite ease-in-out;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green-700); animation: bounce 1.2s infinite ease-in-out;
   }
   .dot-loader span:nth-child(2) { animation-delay: 0.15s; }
   .dot-loader span:nth-child(3) { animation-delay: 0.30s; }
@@ -238,18 +117,19 @@
 
   .notice { padding: 12px 16px; border-radius: 10px; font-size: 13.5px; line-height: 1.6; }
   .notice.error { background: var(--red-100); color: var(--red-700); }
-  .notice a { color: var(--blue-700); font-weight: 600; }
 
   .disclaimer {
-    max-width: 680px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0 2rem 2rem;
-    font-size: 12px;
-    color: var(--slate-500);
-    line-height: 1.5;
+    max-width: 680px; margin: 0 auto; width: 100%;
+    padding: 0 2rem 2rem; font-size: 12px;
+    color: var(--slate-500); line-height: 1.5;
   }
   .disclaimer strong { color: var(--slate-700); }
+
+  .powered {
+    max-width: 680px; margin: 0 auto; width: 100%;
+    padding: 0 2rem 1rem;
+    font-size: 12px; color: var(--slate-500);
+  }
 </style>
 </head>
 <body>
@@ -265,18 +145,6 @@
 </section>
 
 <section class="form-card">
-
-  <div class="api-banner">
-    <p>This app uses <strong>Google Gemini AI</strong> (free). You need a free API key to get results.<br>
-      Get yours in 1 minute at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> → click <strong>Create API key</strong>.
-    </p>
-    <div class="api-key-row">
-      <input type="password" id="api-key" placeholder="Paste your Gemini API key here…" autocomplete="off" />
-      <button class="save-btn" onclick="saveKey()">Save key</button>
-    </div>
-    <div class="key-saved" id="key-saved">✓ Key saved — ready to use</div>
-  </div>
-
   <div class="inputs-row">
     <div class="field">
       <label for="age">Age</label>
@@ -311,28 +179,16 @@
   <div id="result-text"></div>
 </section>
 
+<div class="powered">Powered by Hugging Face AI · Free to use</div>
+
 <div class="disclaimer">
   <strong>Medical disclaimer:</strong> This tool provides general health information based on common clinical guidelines (USPSTF, AHA, ACS). It is not a substitute for professional medical advice. Always consult your doctor before making health decisions.
 </div>
 
 <script>
-  let geminiKey = localStorage.getItem('gemini_key') || '';
-  if (geminiKey) {
-    document.getElementById('api-key').value = geminiKey;
-    document.getElementById('key-saved').classList.add('visible');
-  }
-
-  function saveKey() {
-    const val = document.getElementById('api-key').value.trim();
-    if (!val) return;
-    geminiKey = val;
-    localStorage.setItem('gemini_key', val);
-    document.getElementById('key-saved').classList.add('visible');
-  }
-
-  document.getElementById('api-key').addEventListener('keydown', e => {
-    if (e.key === 'Enter') saveKey();
-  });
+  const HF_TOKEN = "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";
+  const HF_MODEL = "mistralai/Mistral-7B-Instruct-v0.2";
+  const HF_URL   = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
 
   async function getScreenings() {
     const age    = document.getElementById('age').value.trim();
@@ -340,12 +196,6 @@
     const errArea = document.getElementById('error-area');
     errArea.innerHTML = '';
 
-    const key = document.getElementById('api-key').value.trim() || geminiKey;
-
-    if (!key) {
-      errArea.innerHTML = '<div class="notice error">Please enter your Gemini API key above first. Get a free one at <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>.</div>';
-      return;
-    }
     if (!age || age < 1 || age > 120) {
       errArea.innerHTML = '<div class="notice error">Please enter a valid age between 1 and 120.</div>';
       return;
@@ -364,42 +214,54 @@
     document.getElementById('result-text').textContent = '';
     document.getElementById('loader').classList.add('active');
 
-    const prompt = `You are a clinical health screening advisor. A patient is: ${gender}, aged ${age}.
+    const prompt = `<s>[INST] You are a clinical health screening advisor. A patient is: ${gender}, aged ${age}.
 
-List all mandatory and strongly recommended health screenings and preventive tests for this person, based on current guidelines from USPSTF, AHA, ACS, and similar bodies.
+List all mandatory and strongly recommended health screenings and preventive tests for this person based on USPSTF, AHA, and ACS guidelines.
 
-Format your response clearly with sections. For each test include:
-- Test name
-- Why it is recommended
-- How often / when
-- Any notes specific to this age group
-
-Be practical and specific. Group by body system or priority if helpful.`;
+For each test include: test name, why it is recommended, how often, and any age-specific notes.
+Group by category. Be specific and practical. [/INST]`;
 
     try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${key}`;
-      const res = await fetch(url, {
+      const res = await fetch(HF_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Authorization': `Bearer ${HF_TOKEN}`,
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { maxOutputTokens: 1500, temperature: 0.3 }
+          inputs: prompt,
+          parameters: {
+            max_new_tokens: 1000,
+            temperature: 0.3,
+            return_full_text: false
+          }
         })
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        const msg = data?.error?.message || 'API error. Please check your key and try again.';
+        const msg = data?.error || 'API error. Please try again in a moment.';
         document.getElementById('loader').classList.remove('active');
-        document.getElementById('result-text').innerHTML = `<div class="notice error">${msg}<br><br>Make sure you copied the full key from <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>.</div>`;
+        document.getElementById('result-text').innerHTML = `<div class="notice error">${msg}</div>`;
         btn.disabled = false;
         return;
       }
 
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response received.';
+      // Handle model loading (HF cold starts)
+      if (data?.error && data.error.includes('loading')) {
+        document.getElementById('loader').classList.remove('active');
+        document.getElementById('result-text').innerHTML = `<div class="notice error">Model is warming up — please wait 20 seconds and try again.</div>`;
+        btn.disabled = false;
+        return;
+      }
+
+      const text = Array.isArray(data)
+        ? data[0]?.generated_text || 'No response received.'
+        : data?.generated_text || 'No response received.';
+
       document.getElementById('loader').classList.remove('active');
-      document.getElementById('result-text').textContent = text;
+      document.getElementById('result-text').textContent = text.trim();
 
     } catch (e) {
       document.getElementById('loader').classList.remove('active');
